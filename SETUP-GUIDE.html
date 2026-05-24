@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Setup Guide - VantageDown (Hindi)</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6431906375099854" crossorigin="anonymous"></script>
+  <style>
+    .guide-wrap { max-width: 860px; margin: 0 auto; padding: 40px 20px 100px; }
+    .step-block { background: var(--white); border: 1px solid var(--gray-200); border-radius: var(--radius-lg); margin-bottom: 24px; overflow: hidden; }
+    .step-block-head { background: var(--blue-primary); color: #fff; padding: 16px 22px; display: flex; align-items: center; gap: 12px; }
+    .step-block-num { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,255,255,.2); display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 1rem; flex-shrink: 0; }
+    .step-block-title { font-size: 1.05rem; font-weight: 700; }
+    .step-block-body { padding: 22px; }
+    .step-block-body p { font-size: .9rem; color: var(--gray-600); line-height: 1.75; margin-bottom: 10px; }
+    .step-block-body strong { color: var(--gray-900); }
+    .step-block-body ul { padding-left: 20px; margin: 8px 0 12px; }
+    .step-block-body li { font-size: .88rem; color: var(--gray-600); margin-bottom: 6px; line-height: 1.6; }
+    .code-box { background: var(--gray-900); color: #a5f3fc; padding: 14px 18px; border-radius: var(--radius-md); font-family: var(--font-mono); font-size: .82rem; line-height: 1.7; margin: 12px 0; overflow-x: auto; white-space: pre-wrap; word-break: break-all; }
+    .code-box .key { color: #fde68a; }
+    .code-box .val { color: #86efac; }
+    .code-box .cmt { color: #6b7280; }
+    .tip-box { background: var(--blue-pale); border: 1px solid var(--blue-light); border-radius: var(--radius-md); padding: 14px 16px; margin: 12px 0; display: flex; gap: 10px; }
+    .tip-box svg { flex-shrink: 0; color: var(--blue-primary); margin-top: 2px; }
+    .tip-box p { font-size: .85rem; color: var(--gray-700); margin: 0; }
+    .warn-box { background: #fffbeb; border: 1px solid #fde68a; border-radius: var(--radius-md); padding: 14px 16px; margin: 12px 0; display: flex; gap: 10px; }
+    .warn-box svg { flex-shrink: 0; color: #d97706; margin-top: 2px; }
+    .warn-box p { font-size: .85rem; color: #78350f; margin: 0; }
+    .success-box { background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: var(--radius-md); padding: 14px 16px; margin: 12px 0; display: flex; gap: 10px; }
+    .success-box svg { flex-shrink: 0; color: #16a34a; margin-top: 2px; }
+    .success-box p { font-size: .85rem; color: #14532d; margin: 0; }
+    .img-placeholder { background: var(--gray-100); border: 2px dashed var(--gray-300); border-radius: var(--radius-md); padding: 20px; text-align: center; color: var(--gray-400); font-size: .82rem; margin: 10px 0; }
+    .file-table { width: 100%; border-collapse: collapse; margin: 12px 0; }
+    .file-table th { background: var(--gray-100); padding: 10px 12px; text-align: left; font-size: .8rem; font-weight: 600; color: var(--gray-600); text-transform: uppercase; }
+    .file-table td { padding: 10px 12px; font-size: .85rem; color: var(--gray-700); border-bottom: 1px solid var(--gray-200); }
+    .file-table td:first-child { font-family: var(--font-mono); color: var(--blue-primary); font-size: .82rem; }
+    .badge-important { background: #fee2e2; color: #dc2626; padding: 2px 10px; border-radius: 99px; font-size: .72rem; font-weight: 700; }
+    .badge-optional { background: #f0fdf4; color: #16a34a; padding: 2px 10px; border-radius: 99px; font-size: .72rem; font-weight: 700; }
+    h2.section-main { font-size: 1.4rem; font-weight: 800; color: var(--gray-900); margin: 40px 0 20px; border-bottom: 2px solid var(--blue-primary); padding-bottom: 10px; }
+    .checklist-item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--gray-200); }
+    .checklist-item:last-child { border: none; }
+    .checkbox { width: 20px; height: 20px; border: 2px solid var(--gray-300); border-radius: 4px; flex-shrink: 0; margin-top: 2px; }
+    .checklist-txt { font-size: .875rem; color: var(--gray-700); }
+    .summary-card { background: linear-gradient(135deg, var(--blue-primary), #1459d9); color: #fff; border-radius: var(--radius-xl); padding: 28px; margin-bottom: 24px; }
+    .summary-card h2 { color: #fff; font-size: 1.3rem; margin-bottom: 8px; }
+    .summary-card p { color: rgba(255,255,255,.85); font-size: .9rem; line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div style="width:36px;height:36px;background:var(--blue-primary);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <span class="nav-brand-name">Vantage<span>Down</span></span>
+      </a>
+      <div class="nav-actions">
+        <button class="theme-toggle" title="Toggle dark mode">
+          <svg class="theme-icon-sun" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2"/></svg>
+          <svg class="theme-icon-moon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <span class="badge-important" style="padding:5px 14px;">Setup Guide</span>
+      </div>
+    </div>
+  </nav>
+
+  <div class="guide-wrap">
+
+    <!-- Hero -->
+    <div style="text-align:center;padding:40px 0 32px;">
+      <div class="hero-label" style="justify-content:center;display:inline-flex;margin-bottom:14px;">Step-by-Step Setup Guide (Hindi)</div>
+      <h1 style="font-size:2rem;font-weight:800;color:var(--gray-900);margin-bottom:10px;">VantageDown Setup Guide</h1>
+      <p style="color:var(--gray-600);font-size:.95rem;max-width:560px;margin:0 auto;">Yeh guide follow karke aap apni website 30-45 minutes mein live kar sakte hain. Koi coding zaroorat nahi.</p>
+    </div>
+
+    <!-- Summary Card -->
+    <div class="summary-card">
+      <h2>Kya-Kya Chahiye? (Requirements)</h2>
+      <p>Website live karne ke liye sirf teen cheezein chahiye:</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-top:16px;">
+        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:14px;">
+          <div style="font-size:1.4rem;margin-bottom:6px;">🔥</div>
+          <div style="font-weight:700;margin-bottom:4px;">Firebase Account</div>
+          <div style="font-size:.82rem;opacity:.85;">Free hai. Google account se banao.</div>
+        </div>
+        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:14px;">
+          <div style="font-size:1.4rem;margin-bottom:6px;">🌐</div>
+          <div style="font-weight:700;margin-bottom:4px;">Hosting</div>
+          <div style="font-size:.82rem;opacity:.85;">Netlify/Firebase Hosting — dono free hain.</div>
+        </div>
+        <div style="background:rgba(255,255,255,.15);border-radius:10px;padding:14px;">
+          <div style="font-size:1.4rem;margin-bottom:6px;">📁</div>
+          <div style="font-weight:700;margin-bottom:4px;">Project Files</div>
+          <div style="font-size:.82rem;opacity:.85;">Jo ZIP download ki hai — woh sab kuch hai.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Files List -->
+    <h2 class="section-main">Project Files — Kya Hai Kya</h2>
+    <div class="step-block">
+      <div class="step-block-head" style="background:var(--gray-800);">
+        <svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <div class="step-block-title">ZIP ke Andar Yeh Files Hain</div>
+      </div>
+      <div class="step-block-body" style="padding:0;">
+        <table class="file-table">
+          <thead>
+            <tr><th>File</th><th>Kya Karta Hai</th><th>Zaroori?</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>index.html</td><td>Homepage — jahan link paste karte hain</td><td><span class="badge-important">Zaroori</span></td></tr>
+            <tr><td>download.html</td><td>Download page — jo log dekhte hain</td><td><span class="badge-important">Zaroori</span></td></tr>
+            <tr><td>login.html</td><td>Sign In / Register page</td><td><span class="badge-important">Zaroori</span></td></tr>
+            <tr><td>dashboard.html</td><td>User ka personal dashboard</td><td><span class="badge-important">Zaroori</span></td></tr>
+            <tr><td>admin.html</td><td>Admin control panel (secret page)</td><td><span class="badge-important">Zaroori</span></td></tr>
+            <tr><td>firebase.js</td><td>Firebase ka config — yahan apna ID daloge</td><td><span class="badge-important">EDIT KARO</span></td></tr>
+            <tr><td>style.css</td><td>Poori website ka design</td><td><span class="badge-important">Zaroori</span></td></tr>
+            <tr><td>app.js</td><td>Website ka logic (mat chhedo)</td><td><span class="badge-important">Zaroori</span></td></tr>
+            <tr><td>terms.html</td><td>Terms &amp; Conditions</td><td><span class="badge-optional">Optional</span></td></tr>
+            <tr><td>privacy.html</td><td>Privacy Policy</td><td><span class="badge-optional">Optional</span></td></tr>
+            <tr><td>contact.html</td><td>Contact page</td><td><span class="badge-optional">Optional</span></td></tr>
+            <tr><td>server.html</td><td>Technical deployment docs</td><td><span class="badge-optional">Optional</span></td></tr>
+            <tr><td>manufacturer.html</td><td>About Developer page</td><td><span class="badge-optional">Optional</span></td></tr>
+            <tr><td>robots.txt</td><td>SEO ke liye search engine rules</td><td><span class="badge-optional">Rakho</span></td></tr>
+            <tr><td>sitemap.xml</td><td>Google ko pages dikhata hai</td><td><span class="badge-optional">Rakho</span></td></tr>
+            <tr><td>favicon.ico</td><td>Browser tab icon</td><td><span class="badge-optional">Rakho</span></td></tr>
+            <tr><td>logo.svg</td><td>Website logo</td><td><span class="badge-optional">Rakho</span></td></tr>
+            <tr><td>README.txt</td><td>English mein documentation</td><td><span class="badge-optional">Reference</span></td></tr>
+            <tr><td>SETUP-GUIDE.html</td><td>Yeh wali guide (Hindi)</td><td><span class="badge-optional">Reference</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- STEP 1: Firebase Project -->
+    <h2 class="section-main">Part 1 — Firebase Setup (Backend)</h2>
+    <p style="color:var(--gray-600);font-size:.9rem;margin-bottom:20px;">Firebase aapka database aur login system hai. Yeh Google ka free service hai. Koi server khareedne ki zaroorat nahi.</p>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">1</div>
+        <div class="step-block-title">Firebase Project Banao</div>
+      </div>
+      <div class="step-block-body">
+        <p><strong>Browser mein yeh link kholo:</strong></p>
+        <div class="code-box">https://console.firebase.google.com</div>
+        <ul>
+          <li>Apne Google account se login karo</li>
+          <li><strong>"Add project"</strong> button pe click karo</li>
+          <li>Project ka naam likho — jaise <strong>vantagedown</strong></li>
+          <li>Google Analytics: <strong>OFF</strong> kar do (baad mein enable kar sakte hain)</li>
+          <li><strong>"Create project"</strong> karo — 30 seconds wait karo</li>
+        </ul>
+        <div class="success-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <p>Project ban gaya! Ab aap Firebase console mein hoge.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">2</div>
+        <div class="step-block-title">Web App Register Karo — Config Copy Karo</div>
+      </div>
+      <div class="step-block-body">
+        <ul>
+          <li>Firebase Console mein <strong>Project Settings</strong> (gear icon ⚙️) pe click karo</li>
+          <li>Neeche scroll karo — <strong>"Your apps"</strong> section mein <strong>&lt;/&gt; (Web)</strong> icon pe click karo</li>
+          <li>App nickname: <strong>vantagedown-web</strong> likho</li>
+          <li><strong>"Register app"</strong> karo</li>
+          <li>Ab ek code box aayega — usmein <strong>firebaseConfig</strong> dikhega</li>
+        </ul>
+        <p><strong>Yeh config copy karna hai — kuch aisa dikhega:</strong></p>
+        <div class="code-box"><span class="cmt">// Firebase config — yeh aapka unique config hai</span>
+<span class="key">const firebaseConfig</span> = {
+  <span class="key">apiKey</span>: <span class="val">"AIzaSyCynjRnayg2lCHCBDrLNhw8zREwswVifMg"</span>,
+  <span class="key">authDomain</span>: <span class="val">"vantage-share.firebaseapp.com"</span>,
+  <span class="key">databaseURL</span>: <span class="val">"https://vantage-share-default-rtdb.firebaseio.com"</span>,
+  <span class="key">projectId</span>: <span class="val">"vantage-share"</span>,
+  <span class="key">storageBucket</span>: <span class="val">"vantage-share.firebasestorage.app"</span>,
+  <span class="key">messagingSenderId</span>: <span class="val">"670971388059"</span>,
+  <span class="key">appId</span>: <span class="val">"1:670971388059:web:c9fa7089671543092a263e"</span>
+};</div>
+        <div class="warn-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p>Yeh config apne paas save kar lo (screenshot lo ya notepad mein paste karo). Agla step mein kaam aayega.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">3</div>
+        <div class="step-block-title">firebase.js File Mein Config Paste Karo</div>
+      </div>
+      <div class="step-block-body">
+        <p>ZIP se nikali files mein <strong>firebase.js</strong> file hai. Use Notepad (Windows) ya TextEdit (Mac) mein kholo.</p>
+        <p>File ke top par yeh dikhega:</p>
+        <div class="code-box"><span class="cmt">// REPLACE THESE with your Firebase project credentials</span>
+const FIREBASE_CONFIG = {
+  <span class="key">apiKey</span>:            <span class="val">"YOUR_API_KEY"</span>,          <span class="cmt">← Yahan apna paste karo</span>
+  <span class="key">authDomain</span>:        <span class="val">"YOUR_PROJECT_ID.firebaseapp.com"</span>,
+  <span class="key">projectId</span>:         <span class="val">"YOUR_PROJECT_ID"</span>,
+  <span class="key">storageBucket</span>:     <span class="val">"YOUR_PROJECT_ID.appspot.com"</span>,
+  <span class="key">messagingSenderId</span>: <span class="val">"YOUR_MESSAGING_SENDER_ID"</span>,
+  <span class="key">appId</span>:             <span class="val">"YOUR_APP_ID"</span>
+};</div>
+        <p><strong>"YOUR_API_KEY"</strong> etc. ko apne Firebase se copy kiye values se replace karo.</p>
+        <div class="tip-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <p>Sirf values badalni hain — baaki code mat chhedo. File save karo (Ctrl+S).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">4</div>
+        <div class="step-block-title">Authentication Enable Karo (Login System)</div>
+      </div>
+      <div class="step-block-body">
+        <p>Firebase Console mein left sidebar mein <strong>"Authentication"</strong> pe click karo.</p>
+        <ul>
+          <li><strong>"Get started"</strong> pe click karo</li>
+          <li><strong>"Sign-in method"</strong> tab kholo</li>
+          <li><strong>Google</strong> pe click karo → Enable karo → Project support email add karo → Save</li>
+          <li><strong>Email/Password</strong> pe click karo → Enable karo → Save</li>
+        </ul>
+        <div class="success-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <p>Login system ready! Ab Google se aur email se login hoga.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">5</div>
+        <div class="step-block-title">Firestore Database Banao</div>
+      </div>
+      <div class="step-block-body">
+        <p>Left sidebar mein <strong>"Firestore Database"</strong> pe click karo.</p>
+        <ul>
+          <li><strong>"Create database"</strong> pe click karo</li>
+          <li>Location: <strong>asia-south1 (Mumbai)</strong> choose karo — India ke liye fastest</li>
+          <li>Security rules: <strong>"Start in test mode"</strong> choose karo (baad mein proper rules lagayenge)</li>
+          <li><strong>"Enable"</strong> karo</li>
+        </ul>
+        <div class="warn-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p>Test mode 30 days ke baad expire hoti hai. Baad mein proper security rules daalni hongi — SETUP-GUIDE.html mein rules diye hain.</p>
+        </div>
+
+        <p style="margin-top:14px;"><strong>Proper Security Rules (30 days baad lagao):</strong></p>
+        <p>Firestore Console → Rules tab → Yeh paste karo:</p>
+        <div class="code-box">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid} {
+      allow read, write: if request.auth != null && request.auth.uid == uid;
+      allow read, write: if request.auth != null
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+    match /links/{linkId} {
+      allow read: if true;
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null
+        && (resource.data.uid == request.auth.uid
+          || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+    }
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+  }
+}</div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Hosting -->
+    <h2 class="section-main">Part 2 — Website Live Karo (Hosting)</h2>
+    <p style="color:var(--gray-600);font-size:.9rem;margin-bottom:20px;">Hosting matlab aapki files internet pe upload hoti hain taki koi bhi access kar sake. Hum Netlify use karenge — bilkul free hai, koi credit card nahi chahiye.</p>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">6</div>
+        <div class="step-block-title">Netlify pe Upload Karo (Sabse Aasan Tarika)</div>
+      </div>
+      <div class="step-block-body">
+        <p><strong>Yeh steps follow karo:</strong></p>
+        <ul>
+          <li>Browser mein kholo: <strong>netlify.com</strong></li>
+          <li><strong>"Sign up"</strong> karo — GitHub ya Google se login kar sakte hain</li>
+          <li>Dashboard pe aaoge — wahan ek <strong>bada dotted box</strong> dikhega</li>
+          <li>Uspe likha hoga: <em>"Drag and drop your site folder here"</em></li>
+          <li>Apni <strong>vantage-download-site</strong> folder ko us box mein <strong>drag karke drop karo</strong></li>
+          <li>10-20 seconds mein deploy ho jayega</li>
+          <li>Ek URL milega — jaise: <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;">amazing-site-123.netlify.app</code></li>
+        </ul>
+        <div class="success-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <p>Website live ho gayi! Woh URL share karo — koi bhi access kar sakta hai.</p>
+        </div>
+        <div class="tip-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <p>Custom domain chahiye (jaise vantagedown.com)? Netlify → Domain Settings → Add custom domain. Domain GoDaddy/Namecheap se khareedna padega (~$10/year).</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">7</div>
+        <div class="step-block-title">Firebase mein Apna Domain Add Karo (Important!)</div>
+      </div>
+      <div class="step-block-body">
+        <p>Google login kaam karne ke liye Firebase ko batana padega ki aapki website ka domain kya hai.</p>
+        <ul>
+          <li>Firebase Console → <strong>Authentication</strong> → <strong>Settings tab</strong></li>
+          <li><strong>"Authorized domains"</strong> section mein apna Netlify URL add karo</li>
+          <li>Jaise: <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;">amazing-site-123.netlify.app</code></li>
+          <li><strong>"Add domain"</strong> karo</li>
+        </ul>
+        <div class="warn-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+          <p>Yeh step miss karne pe Google login kaam nahi karega — "unauthorized domain" error aayega.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 3: Admin Setup -->
+    <h2 class="section-main">Part 3 — Admin Account Banao</h2>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">8</div>
+        <div class="step-block-title">Pehla Account Banao</div>
+      </div>
+      <div class="step-block-body">
+        <ul>
+          <li>Apni live website par jao</li>
+          <li><strong>login.html</strong> page pe jao</li>
+          <li><strong>"Create Account"</strong> tab pe click karo</li>
+          <li>Apna naam, email, password dalke register karo</li>
+          <li>Ya <strong>Google se sign in</strong> karo</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">9</div>
+        <div class="step-block-title">Apne Account ko Admin Banao</div>
+      </div>
+      <div class="step-block-body">
+        <p>Register hone ke baad Firestore mein jaake manually role change karna hoga:</p>
+        <ul>
+          <li>Firebase Console → <strong>Firestore Database</strong></li>
+          <li>Left mein <strong>"users"</strong> collection dikhega — uspe click karo</li>
+          <li>Andar ek document hoga (aapka UID) — uspe click karo</li>
+          <li><strong>role</strong> field dikhegi jisme likha hoga <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;">"user"</code></li>
+          <li>Us field pe click karo → <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;">"admin"</code> likh do → <strong>Save/Update</strong></li>
+        </ul>
+        <div class="img-placeholder">
+          📸 Firebase Console → Firestore → users → [your-uid] → role: "admin"
+        </div>
+        <div class="success-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <p>Ab aap <strong>/admin.html</strong> access kar sakte hain! Wahan sab settings milenge.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 4: AdSense -->
+    <h2 class="section-main">Part 4 — Google AdSense (Already Done!)</h2>
+
+    <div class="step-block">
+      <div class="step-block-head" style="background:#16a34a;">
+        <svg width="20" height="20" fill="none" stroke="white" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+        <div class="step-block-title">AdSense Already Add Ho Gaya Hai!</div>
+      </div>
+      <div class="step-block-body">
+        <div class="success-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+          <p>Aapka AdSense ID <strong>ca-pub-6431906375099854</strong> saari HTML files mein automatically add kar diya gaya hai!</p>
+        </div>
+        <p>Yeh code har HTML file ke &lt;head&gt; mein hai:</p>
+        <div class="code-box">&lt;script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js
+  ?client=<span class="val">ca-pub-6431906375099854</span>"
+  crossorigin="anonymous"&gt;&lt;/script&gt;</div>
+
+        <p><strong>Ad Units kahan dikhenge?</strong></p>
+        <ul>
+          <li>Homepage pe — generator box ke neeche ek banner</li>
+          <li>Download page pe — top banner + sidebar square ad</li>
+        </ul>
+
+        <div class="tip-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <p>AdSense Auto Ads use kar rahe hain to manually kuch nahi karna. Agar specific ad units dikhane hain to AdSense console mein jaake ad unit code copy karo aur HTML files mein <code>.ad-slot</code> div ke andar paste karo.</p>
+        </div>
+
+        <p><strong>Ad slots HTML mein kahan hain?</strong> In files mein search karo <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;">ad-slot</code>:</p>
+        <div class="code-box"><span class="cmt">&lt;!-- Yeh placeholder hain — apna AdSense unit code yahan daalo --&gt;</span>
+&lt;div class="ad-slot ad-slot-banner" id="ad-top"&gt;Advertisement&lt;/div&gt;
+
+<span class="cmt">&lt;!-- Replace with: --&gt;</span>
+&lt;ins class="adsbygoogle"
+  style="display:block"
+  data-ad-client="<span class="val">ca-pub-6431906375099854</span>"
+  data-ad-slot="<span class="val">YOUR_AD_SLOT_ID</span>"
+  data-ad-format="auto"&gt;&lt;/ins&gt;
+&lt;script&gt;(adsbygoogle = window.adsbygoogle || []).push({});&lt;/script&gt;</div>
+      </div>
+    </div>
+
+    <!-- STEP 5: Social Links -->
+    <h2 class="section-main">Part 5 — Social Links Setup Karo</h2>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">10</div>
+        <div class="step-block-title">YouTube, Instagram, WhatsApp Links Add Karo</div>
+      </div>
+      <div class="step-block-body">
+        <p>Website live hone ke baad Admin Panel se social links set kar sakte hain:</p>
+        <ul>
+          <li>Website pe <strong>/admin.html</strong> pe jao</li>
+          <li>Left sidebar mein <strong>"Social Tasks"</strong> pe click karo</li>
+          <li>Apna YouTube, Instagram, WhatsApp link paste karo</li>
+          <li><strong>"Save Configuration"</strong> karo</li>
+        </ul>
+        <p>Ya phir seedha HTML files mein bhi daal sakte ho — <strong>index.html</strong> mein footer section mein <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;">href="#"</code> ko apne real links se replace karo.</p>
+        <div class="tip-box">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+          <p>Social Unlock system ON/OFF karna hai to Admin Panel → Settings → "Social Unlock System" toggle karo.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- STEP 6: Domain & Sitemap -->
+    <h2 class="section-main">Part 6 — Last Finishing Steps</h2>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">11</div>
+        <div class="step-block-title">Sitemap mein Domain Update Karo</div>
+      </div>
+      <div class="step-block-body">
+        <p><strong>sitemap.xml</strong> file ko Notepad mein kholo aur sabhi jagah <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;">vantagedown.com</code> ko apne real domain/Netlify URL se replace karo:</p>
+        <div class="code-box"><span class="cmt">&lt;!-- Purana --&gt;</span>
+&lt;loc&gt;https://<span class="key">vantagedown.com</span>/index.html&lt;/loc&gt;
+
+<span class="cmt">&lt;!-- Naya (apna Netlify URL ya domain) --&gt;</span>
+&lt;loc&gt;https://<span class="val">amazing-site-123.netlify.app</span>/index.html&lt;/loc&gt;</div>
+      </div>
+    </div>
+
+    <div class="step-block">
+      <div class="step-block-head">
+        <div class="step-block-num">12</div>
+        <div class="step-block-title">Google Search Console mein Submit Karo (SEO)</div>
+      </div>
+      <div class="step-block-body">
+        <p>Google pe aana chahte ho? Yeh karo:</p>
+        <ul>
+          <li>Kholo: <a href="https://search.google.com/search-console" target="_blank" class="text-blue">search.google.com/search-console</a></li>
+          <li>Apni website ka URL add karo</li>
+          <li>Sitemap submit karo: <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;">https://aapki-site.netlify.app/sitemap.xml</code></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Final Checklist -->
+    <h2 class="section-main">Final Checklist — Sab Hua?</h2>
+
+    <div class="card" style="padding:24px;">
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt"><strong>firebase.js</strong> — Already updated with your vantage-share config ✅</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">Firebase Authentication mein Google + Email/Password enable kiya</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">Firestore Database banaya (asia-south1 region)</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">Netlify pe folder upload kiya — website live hai</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">Firebase mein Netlify domain authorized kiya</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">Ek account register kiya</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">Firestore mein apna role "admin" kiya</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">Admin panel (/admin.html) access kiya aur social links set kiye</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">AdSense already add hai — koi kaam nahi (Auto Ads ke liye)</div>
+      </div>
+      <div class="checklist-item">
+        <div class="checkbox"></div>
+        <div class="checklist-txt">sitemap.xml mein apna domain update kiya</div>
+      </div>
+    </div>
+
+    <!-- Congratulations -->
+    <div style="text-align:center;background:linear-gradient(135deg,#16a34a,#15803d);color:#fff;border-radius:var(--radius-xl);padding:36px;margin-top:32px;">
+      <div style="font-size:2.5rem;margin-bottom:12px;">🎉</div>
+      <h2 style="font-size:1.4rem;font-weight:800;color:#fff;margin-bottom:8px;">Website Ready Hai!</h2>
+      <p style="opacity:.9;font-size:.95rem;max-width:500px;margin:0 auto 20px;">Sab steps follow karke website live hai. Ab Google Drive links share karo, AdSense se paise kamao!</p>
+      <a href="index.html" class="btn" style="background:#fff;color:#16a34a;font-weight:700;padding:12px 28px;border-radius:var(--radius-md);">
+        Website Dekho →
+      </a>
+    </div>
+
+    <!-- Troubleshooting -->
+    <h2 class="section-main">Problem Aa Rahi Hai?</h2>
+    <div class="card">
+      <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
+        <div style="border-bottom:1px solid var(--gray-200);padding-bottom:14px;">
+          <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Google login kaam nahi kar raha?</div>
+          <p class="text-sm text-muted">Firebase Console → Authentication → Settings → Authorized Domains mein apna Netlify URL add karo.</p>
+        </div>
+        <div style="border-bottom:1px solid var(--gray-200);padding-bottom:14px;">
+          <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Admin panel access denied aa raha hai?</div>
+          <p class="text-sm text-muted">Firestore → users → apna UID → role field → "admin" likho. Phir logout karke login karo.</p>
+        </div>
+        <div style="border-bottom:1px solid var(--gray-200);padding-bottom:14px;">
+          <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Download link kaam nahi kar raha?</div>
+          <p class="text-sm text-muted">Google Drive file mein "Anyone with the link" permission ON karo. Private files download nahi honge.</p>
+        </div>
+        <div style="border-bottom:1px solid var(--gray-200);padding-bottom:14px;">
+          <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Firestore permission denied error?</div>
+          <p class="text-sm text-muted">Firestore Rules mein "Test mode" hai to 30 din ke baad expire hoti hai. Upar diye proper rules paste karo.</p>
+        </div>
+        <div>
+          <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">AdSense ads nahi dikh rahe?</div>
+          <p class="text-sm text-muted">AdSense approve hone mein 24-48 ghante lagte hain. Agar naya account hai to pehle approve hona padega. Auto Ads enable karo AdSense console mein.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding:20px 0;">
+        <span class="footer-bottom-txt">&copy; 2025 VantageDown. Setup Guide — Hindi Version.</span>
+        <a href="index.html" class="footer-link">← Back to Home</a>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign In - VantageDown</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6431906375099854" crossorigin="anonymous"></script>
+</head>
+<body data-page="auth">
+
+  <div class="auth-page">
+    <div class="card auth-card">
+
+      <!-- Logo -->
+      <div class="auth-logo">
+        <a href="index.html" class="nav-brand" style="justify-content:center;">
+          <div style="width:44px;height:44px;background:var(--blue-primary);border-radius:10px;display:flex;align-items:center;justify-content:center;">
+            <svg width="24" height="24" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          </div>
+          <span class="nav-brand-name" style="font-size:1.25rem;">Vantage<span>Down</span></span>
+        </a>
+      </div>
+
+      <!-- Tabs -->
+      <div style="display:flex;border:1.5px solid var(--gray-200);border-radius:var(--radius-md);overflow:hidden;margin-bottom:24px;">
+        <button id="tab-login" onclick="switchTab('login')"
+          style="flex:1;padding:10px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;background:var(--blue-primary);color:#fff;transition:var(--transition);">
+          Sign In
+        </button>
+        <button id="tab-register" onclick="switchTab('register')"
+          style="flex:1;padding:10px;font-weight:600;font-size:.9rem;border:none;cursor:pointer;background:var(--white);color:var(--gray-600);transition:var(--transition);">
+          Create Account
+        </button>
+      </div>
+
+      <!-- Google Sign In -->
+      <button id="google-signin-btn" class="google-btn">
+        <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google" width="20">
+        Continue with Google
+      </button>
+
+      <!-- Divider -->
+      <div class="auth-divider">
+        <div class="auth-divider-line"></div>
+        <span class="auth-divider-txt">or continue with email</span>
+        <div class="auth-divider-line"></div>
+      </div>
+
+      <!-- LOGIN FORM -->
+      <form id="login-form" style="display:flex;flex-direction:column;gap:14px;">
+        <div class="form-group">
+          <label class="form-label" for="login-email">Email address</label>
+          <input type="email" name="email" id="login-email" class="form-control" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="login-pass" style="display:flex;justify-content:space-between;">
+            Password
+            <button type="button" onclick="vantageResetPwd()" style="background:none;border:none;color:var(--blue-primary);font-size:.8rem;cursor:pointer;font-weight:500;">Forgot password?</button>
+          </label>
+          <input type="password" name="password" id="login-pass" class="form-control" placeholder="••••••••" required autocomplete="current-password">
+        </div>
+        <button type="submit" class="btn btn-primary" style="width:100%;margin-top:4px;padding:13px;">Sign In</button>
+      </form>
+
+      <!-- REGISTER FORM -->
+      <form id="register-form" style="display:none;flex-direction:column;gap:14px;">
+        <div class="form-group">
+          <label class="form-label" for="reg-name">Full Name</label>
+          <input type="text" name="name" id="reg-name" class="form-control" placeholder="Your Name" required autocomplete="name">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-email">Email address</label>
+          <input type="email" name="email" id="reg-email" class="form-control" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-pass">Password</label>
+          <input type="password" name="password" id="reg-pass" class="form-control" placeholder="Min 6 characters" required autocomplete="new-password" minlength="6">
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="reg-pass2">Confirm Password</label>
+          <input type="password" name="password2" id="reg-pass2" class="form-control" placeholder="Repeat password" required autocomplete="new-password" minlength="6">
+        </div>
+        <p style="font-size:.78rem;color:var(--gray-400);">By creating an account, you agree to our <a href="terms.html" class="text-blue">Terms of Service</a> and <a href="privacy.html" class="text-blue">Privacy Policy</a>.</p>
+        <button type="submit" class="btn btn-primary" style="width:100%;padding:13px;">Create Account</button>
+      </form>
+
+      <p style="text-align:center;margin-top:18px;font-size:.85rem;color:var(--gray-600);">
+        <a href="index.html" class="text-blue" style="font-weight:500;">← Back to Home</a>
+      </p>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script>
+    function switchTab(tab) {
+      const loginForm    = document.getElementById("login-form");
+      const registerForm = document.getElementById("register-form");
+      const tabLogin     = document.getElementById("tab-login");
+      const tabReg       = document.getElementById("tab-register");
+
+      if (tab === "login") {
+        loginForm.style.display    = "flex";
+        registerForm.style.display = "none";
+        tabLogin.style.background  = "var(--blue-primary)";
+        tabLogin.style.color       = "#fff";
+        tabReg.style.background    = "var(--white)";
+        tabReg.style.color         = "var(--gray-600)";
+      } else {
+        loginForm.style.display    = "none";
+        registerForm.style.display = "flex";
+        tabReg.style.background    = "var(--blue-primary)";
+        tabReg.style.color         = "#fff";
+        tabLogin.style.background  = "var(--white)";
+        tabLogin.style.color       = "var(--gray-600)";
+      }
+    }
+
+    function vantageResetPwd() {
+      const email = document.getElementById("login-email").value;
+      if (!email) { alert("Enter your email first."); return; }
+      window.VantageDB?.Auth.resetPassword(email).then(() => alert("Password reset email sent!")).catch(e => alert(e.message));
+    }
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

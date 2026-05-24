@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - VantageDown</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6431906375099854" crossorigin="anonymous"></script>
+</head>
+<body data-page="dashboard">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div style="width:36px;height:36px;background:var(--blue-primary);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <span class="nav-brand-name">Vantage<span>Down</span></span>
+      </a>
+      <div class="nav-actions">
+        <button class="theme-toggle" title="Toggle dark mode">
+          <svg class="theme-icon-sun" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="theme-icon-moon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <span style="font-size:.875rem;color:var(--gray-600);" id="user-display-name">Loading...</span>
+        <button class="sign-out-btn btn btn-ghost btn-sm">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="dashboard-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+      <div class="sidebar-section-label">Main</div>
+      <div class="sidebar-item active" onclick="showTab('links')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        My Links
+        <span class="sidebar-badge" id="links-count-badge">0</span>
+      </div>
+      <div class="sidebar-item" onclick="showTab('analytics')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        Analytics
+      </div>
+      <div class="sidebar-section-label">Account</div>
+      <div class="sidebar-item" onclick="showTab('profile')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        Profile
+      </div>
+      <div class="sidebar-item" onclick="showTab('social')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+        Unlock Links
+      </div>
+      <div class="sidebar-section-label">Tools</div>
+      <a href="index.html" class="sidebar-item">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        New Link
+      </a>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="dashboard-content">
+
+      <!-- ── LINKS TAB ── -->
+      <div id="tab-links">
+        <div class="dash-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+          <div>
+            <div class="dash-title">My Links</div>
+            <div class="dash-sub">Manage all your generated download links</div>
+          </div>
+          <a href="index.html" class="btn btn-primary btn-sm">
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+            New Link
+          </a>
+        </div>
+
+        <!-- Usage -->
+        <div class="card" style="padding:20px;margin-bottom:20px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;flex-wrap:wrap;gap:8px;">
+            <div>
+              <span class="fw-600" style="color:var(--gray-900);">Link Usage</span>
+              <span style="font-size:.85rem;color:var(--gray-400);margin-left:8px;"><span id="stat-links-used">0</span> / <span id="stat-links-limit">25</span> links used</span>
+            </div>
+            <a href="#" onclick="showTab('social');return false;" class="text-blue text-sm fw-500">Unlock more links →</a>
+          </div>
+          <div class="progress-bar-wrap">
+            <div class="progress-bar" id="links-progress" style="width:0%"></div>
+          </div>
+        </div>
+
+        <!-- Links Table -->
+        <div class="card">
+          <div class="card-header" style="display:flex;align-items:center;justify-content:space-between;">
+            <span class="fw-600" style="font-size:.9rem;">Generated Links</span>
+          </div>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>File</th>
+                  <th>Short ID</th>
+                  <th>Clicks</th>
+                  <th>Created</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="links-tbody">
+                <tr><td colspan="5" style="text-align:center;padding:40px;color:var(--gray-400);">Loading links...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ANALYTICS TAB ── -->
+      <div id="tab-analytics" style="display:none;">
+        <div class="dash-header">
+          <div class="dash-title">Analytics</div>
+          <div class="dash-sub">Overview of your link performance</div>
+        </div>
+
+        <div class="stats-grid">
+          <div class="card stat-card">
+            <div class="stat-icon blue">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>
+            </div>
+            <div>
+              <div class="stat-val" id="ana-clicks">—</div>
+              <div class="stat-lbl">Total Clicks</div>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon green">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </div>
+            <div>
+              <div class="stat-val" id="ana-downloads">—</div>
+              <div class="stat-lbl">Downloads</div>
+            </div>
+          </div>
+          <div class="card stat-card">
+            <div class="stat-icon orange">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+            </div>
+            <div>
+              <div class="stat-val" id="ana-links">—</div>
+              <div class="stat-lbl">Total Links</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" style="padding:40px;text-align:center;">
+          <div style="color:var(--gray-400);font-size:.875rem;">Detailed analytics charts coming soon. Generate links and track performance here.</div>
+        </div>
+      </div>
+
+      <!-- ── PROFILE TAB ── -->
+      <div id="tab-profile" style="display:none;">
+        <div class="dash-header">
+          <div class="dash-title">Profile</div>
+          <div class="dash-sub">Manage your account details</div>
+        </div>
+        <div class="card" style="max-width:520px;">
+          <div class="card-body">
+            <div style="display:flex;align-items:center;gap:16px;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--gray-200);">
+              <div class="nav-avatar" style="width:56px;height:56px;font-size:1.2rem;" id="profile-avatar">U</div>
+              <div>
+                <div class="fw-600" style="color:var(--gray-900);" id="profile-name">Loading...</div>
+                <div class="text-sm text-muted" id="profile-email"></div>
+                <span class="badge badge-blue" style="margin-top:4px;">Free Plan</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px;">
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Links Used</div>
+                  <div class="settings-row-desc">Monthly link generation quota</div>
+                </div>
+                <span class="fw-600" id="profile-links-used">0 / 25</span>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Social Tasks</div>
+                  <div class="settings-row-desc">Complete to unlock 50 more links</div>
+                </div>
+                <span id="profile-social-status" class="badge badge-gray">Not Done</span>
+              </div>
+            </div>
+            <div style="margin-top:20px;">
+              <button class="sign-out-btn btn btn-ghost btn-sm">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── SOCIAL UNLOCK TAB ── -->
+      <div id="tab-social" style="display:none;">
+        <div class="dash-header">
+          <div class="dash-title">Unlock More Links</div>
+          <div class="dash-sub">Complete social tasks to get 50 additional links (total 75)</div>
+        </div>
+        <div class="card" style="max-width:560px;">
+          <div class="card-body">
+            <div style="background:var(--blue-pale);border:1px solid var(--blue-light);border-radius:var(--radius-md);padding:16px;margin-bottom:24px;display:flex;gap:12px;align-items:flex-start;">
+              <svg width="20" height="20" fill="none" stroke="var(--blue-primary)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              <div>
+                <div class="fw-600" style="color:var(--blue-primary);margin-bottom:4px;">How it works</div>
+                <p class="text-sm" style="color:var(--gray-600);">Follow / subscribe on each platform below, then click "Mark as Done." Once all 3 tasks are complete, your link limit will be upgraded to 75.</p>
+              </div>
+            </div>
+
+            <div style="display:flex;flex-direction:column;gap:12px;" id="social-task-list-dash">
+              <!-- Task items -->
+              <div class="social-task-item" id="dash-task-yt">
+                <div class="social-task-left">
+                  <div class="social-task-icon task-yt">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.55A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.55a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.75 15.52V8.48L15.82 12l-6.07 3.52z"/></svg>
+                  </div>
+                  <div>
+                    <div class="social-task-name">Subscribe on YouTube</div>
+                    <div class="text-xs text-muted">Help us grow on YouTube</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <a href="https://youtube.com/@vantageytgamer?si=qODPsiPXp9wz6ZPp" target="_blank" id="yt-link" class="btn btn-sm btn-outline">Open YouTube</a>
+                  <button onclick="markDashTask('yt')" class="btn btn-sm btn-ghost">Mark Done</button>
+                </div>
+              </div>
+
+              <div class="social-task-item" id="dash-task-ig">
+                <div class="social-task-left">
+                  <div class="social-task-icon task-ig">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069z"/></svg>
+                  </div>
+                  <div>
+                    <div class="social-task-name">Follow on Instagram</div>
+                    <div class="text-xs text-muted">Stay updated via Instagram</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <a href="https://www.instagram.com/vantageytgamer?igsh=MmpweW00enVha2V3" target="_blank" id="ig-link" class="btn btn-sm btn-outline">Open Instagram</a>
+                  <button onclick="markDashTask('ig')" class="btn btn-sm btn-ghost">Mark Done</button>
+                </div>
+              </div>
+
+              <div class="social-task-item" id="dash-task-wa">
+                <div class="social-task-left">
+                  <div class="social-task-icon task-wa">
+                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884"/></svg>
+                  </div>
+                  <div>
+                    <div class="social-task-name">Join WhatsApp Group</div>
+                    <div class="text-xs text-muted">Get updates via WhatsApp</div>
+                  </div>
+                </div>
+                <div style="display:flex;gap:8px;align-items:center;">
+                  <a href="https://whatsapp.com/channel/0029Vb6ZkXmJ3jv1PQ6CZs33" target="_blank" id="wa-link" class="btn btn-sm btn-outline">Open WhatsApp</a>
+                  <button onclick="markDashTask('wa')" class="btn btn-sm btn-ghost">Mark Done</button>
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:20px;padding:14px;background:var(--gray-50);border-radius:var(--radius-md);text-align:center;" id="social-result-msg" class="hidden">
+              <p class="fw-600 text-success">All tasks complete! Your limit has been upgraded to 75 links.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </main>
+  </div>
+
+  <!-- Mobile Nav -->
+  <nav class="mobile-nav">
+    <div class="mobile-nav-items">
+      <div class="mobile-nav-item active" onclick="showTab('links')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        <span>Links</span>
+      </div>
+      <div class="mobile-nav-item" onclick="showTab('analytics')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        <span>Analytics</span>
+      </div>
+      <a class="mobile-nav-item" href="index.html">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+        <span>Generate</span>
+      </a>
+      <div class="mobile-nav-item" onclick="showTab('profile')">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        <span>Profile</span>
+      </div>
+    </div>
+  </nav>
+
+  <div id="toast-container"></div>
+
+  <script>
+    const tabs = ["links","analytics","profile","social"];
+    function showTab(name) {
+      tabs.forEach(t => {
+        document.getElementById(`tab-${t}`).style.display = t === name ? "block" : "none";
+        document.querySelectorAll(".sidebar-item").forEach(el => {
+          if (el.getAttribute("onclick") === `showTab('${t}')`) {
+            el.classList.toggle("active", t === name);
+          }
+        });
+      });
+    }
+
+    const dashTasks = JSON.parse(localStorage.getItem("vantage_social") || "{}");
+    function markDashTask(id) {
+      dashTasks[id + "_done"] = true;
+      localStorage.setItem("vantage_social", JSON.stringify(dashTasks));
+      document.getElementById(`dash-task-${id}`)?.classList.add("done");
+      if (dashTasks.yt_done && dashTasks.ig_done && dashTasks.wa_done) {
+        document.getElementById("social-result-msg")?.classList.remove("hidden");
+        const user = firebase.auth().currentUser;
+        if (user && window.VantageDB) window.VantageDB.Social.markDone(user.uid);
+      }
+    }
+
+    // Load social links from config
+    async function loadSocialLinks() {
+      if (!window.VantageDB) return;
+      const config = await window.VantageDB.Config.get();
+      const yt = document.getElementById("yt-link"); if(yt) yt.href = config.youtubeLink;
+      const ig = document.getElementById("ig-link"); if(ig) ig.href = config.instagramLink;
+      const wa = document.getElementById("wa-link"); if(wa) wa.href = config.whatsappLink;
+    }
+
+    // Load analytics
+    async function loadAnalytics() {
+      if (!window.VantageDB) return;
+      const user = firebase.auth().currentUser;
+      if (!user) return;
+      const links = await window.VantageDB.Links.getUserLinks(user.uid);
+      let clicks = 0, downloads = 0;
+      links.forEach(l => { clicks += l.clicks||0; downloads += l.downloads||0; });
+      const anaClicks = document.getElementById("ana-clicks"); if(anaClicks) anaClicks.textContent = clicks;
+      const anaDl = document.getElementById("ana-downloads"); if(anaDl) anaDl.textContent = downloads;
+      const anaLinks = document.getElementById("ana-links"); if(anaLinks) anaLinks.textContent = links.length;
+      const badge = document.getElementById("links-count-badge"); if(badge) badge.textContent = links.length;
+
+      // Profile tab
+      const profile = await window.VantageDB.Auth.getProfile(user.uid);
+      const pName = document.getElementById("profile-name"); if(pName) pName.textContent = profile?.displayName || user.email;
+      const pEmail = document.getElementById("profile-email"); if(pEmail) pEmail.textContent = user.email;
+      const pAvatar = document.getElementById("profile-avatar"); if(pAvatar) pAvatar.textContent = (profile?.displayName || user.email || "U")[0].toUpperCase();
+      const pLinks = document.getElementById("profile-links-used"); if(pLinks) pLinks.textContent = `${profile?.linksUsed||0} / ${profile?.linksLimit||25}`;
+      const pSocial = document.getElementById("profile-social-status"); if(pSocial) {
+        pSocial.textContent = profile?.socialDone ? "Complete" : "Not Done";
+        pSocial.className = `badge ${profile?.socialDone ? "badge-green" : "badge-gray"}`;
+      }
+    }
+
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) { loadSocialLinks(); loadAnalytics(); }
+    });
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

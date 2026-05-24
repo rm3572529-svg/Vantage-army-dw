@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Download File - VantageDown</title>
+  <meta name="description" content="Download your file securely and instantly via VantageDown.">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6431906375099854" crossorigin="anonymous"></script>
+</head>
+<body data-page="download">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div style="width:36px;height:36px;background:var(--blue-primary);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <span class="nav-brand-name">Vantage<span>Down</span></span>
+      </a>
+      <div class="nav-actions">
+        <button class="theme-toggle" title="Toggle dark mode">
+          <svg class="theme-icon-sun" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="theme-icon-moon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="index.html" class="btn btn-outline btn-sm">
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+          Generate Link
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- LOADING STATE -->
+  <div id="dl-loading" class="section text-center">
+    <div style="display:flex;flex-direction:column;align-items:center;gap:16px;padding:80px 0;">
+      <div style="width:48px;height:48px;border:3px solid var(--gray-200);border-top-color:var(--blue-primary);border-radius:50%;animation:spin .8s linear infinite;"></div>
+      <p style="color:var(--gray-600);font-weight:500;">Loading file information...</p>
+    </div>
+  </div>
+
+  <!-- ERROR STATE -->
+  <div id="dl-error" class="hidden section">
+    <div class="container">
+      <div class="empty-state" style="padding:80px 20px;">
+        <div class="empty-state-icon" style="background:#fee2e2;color:#dc2626;">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M15 9l-6 6M9 9l6 6"/></svg>
+        </div>
+        <div class="empty-state-title">File Not Found</div>
+        <p class="empty-state-desc">This link may be invalid, expired, or the file may have been removed from Google Drive.</p>
+        <a href="index.html" class="btn btn-primary">Generate a New Link</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD CONTENT -->
+  <div id="dl-content" class="hidden">
+
+    <!-- File Header -->
+    <div class="download-hero">
+      <div class="container">
+        <div style="display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap;">
+          <div id="dl-file-icon">
+            <div class="file-icon-wrap file" style="font-size:32px;">📁</div>
+          </div>
+          <div style="flex:1;min-width:200px;">
+            <div class="dl-filename" id="dl-file-name">Loading...</div>
+            <div class="dl-meta">
+              <div class="dl-meta-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                <span id="dl-file-size">—</span>
+              </div>
+              <div class="dl-meta-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+                <span id="dl-file-type">FILE</span>
+              </div>
+              <div class="dl-meta-item">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Via Google Drive</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Ad slot above content -->
+    <div class="container" style="padding-top:20px;">
+      <div class="ad-slot ad-slot-banner">Advertisement</div>
+    </div>
+
+    <!-- Main Download Area -->
+    <div class="download-main">
+      <div class="container">
+        <div class="download-grid">
+
+          <!-- Left: Main download card -->
+          <div>
+            <!-- Social Unlock Section -->
+            <div id="social-unlock-section" class="social-unlock mb-4 hidden">
+              <div class="social-unlock-header">
+                <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <div>
+                  <div class="social-unlock-title">Complete tasks to unlock download</div>
+                  <p style="font-size:.8rem;color:var(--gray-600);margin-top:2px;">Follow us on social media to unlock the download button.</p>
+                </div>
+              </div>
+              <div class="social-task-list" id="social-task-list">
+                <!-- Populated by JS -->
+              </div>
+            </div>
+
+            <!-- Download Card -->
+            <div class="card dl-card">
+              <h2 style="font-size:1.05rem;font-weight:700;color:var(--gray-900);margin-bottom:6px;">Download File</h2>
+              <p style="font-size:.85rem;color:var(--gray-600);margin-bottom:20px;">Your file is hosted on Google Drive. Click the button below to start your download.</p>
+
+              <div class="dl-btn-wrap">
+                <a id="main-dl-btn" href="#" data-download-href target="_blank"
+                   class="btn btn-primary dl-btn-main"
+                   onclick="if(window.VantageDB){const p=new URLSearchParams(location.search);if(p.get('v'))window.VantageDB.Links.trackClick(p.get('v'),'download');}">
+                  <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                  Download Now
+                </a>
+              </div>
+
+              <div class="divider" style="margin:20px 0;"></div>
+
+              <!-- Share Link -->
+              <div class="form-group">
+                <label class="form-label">Share this page</label>
+                <div class="dl-share-row">
+                  <input type="text" class="form-control" id="dl-share-input" readonly>
+                  <button class="btn btn-outline btn-icon" onclick="navigator.clipboard.writeText(document.getElementById('dl-share-input').value).then(()=>window.vantageToast('Link copied!','success'))" title="Copy link">
+                    <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                  </button>
+                </div>
+              </div>
+
+              <!-- Warning -->
+              <div style="margin-top:18px;padding:12px 14px;background:var(--blue-pale);border-radius:var(--radius-md);border:1px solid var(--blue-light);font-size:.82rem;color:var(--gray-600);display:flex;gap:10px;align-items:flex-start;">
+                <svg width="15" height="15" fill="none" stroke="var(--blue-primary)" stroke-width="2" viewBox="0 0 24 24" style="flex-shrink:0;margin-top:1px;"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+                <span>This file is hosted on Google Drive. Vantage Download does not store or control this file. Download responsibly.</span>
+              </div>
+
+              <!-- Report Link -->
+              <div style="text-align:center;margin-top:16px;">
+                <button onclick="alert('Report submitted. Thank you.')" style="background:none;border:none;color:var(--gray-400);font-size:.8rem;cursor:pointer;text-decoration:underline;">
+                  Report this file
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right: Sidebar -->
+          <div style="display:flex;flex-direction:column;gap:18px;">
+
+            <!-- QR Code -->
+            <div class="card dl-sidebar-card">
+              <div class="dl-sidebar-title">QR Code</div>
+              <div class="qr-wrap" id="qr-container">
+                <div style="width:160px;height:160px;background:var(--gray-200);border-radius:8px;margin:0 auto;display:flex;align-items:center;justify-content:center;color:var(--gray-400);font-size:.8rem;">Loading...</div>
+              </div>
+              <p style="text-align:center;font-size:.78rem;color:var(--gray-400);margin-top:10px;">Scan to open on mobile</p>
+            </div>
+
+            <!-- Ad Square -->
+            <div class="ad-slot ad-slot-square">Advertisement</div>
+
+            <!-- Back to Generator -->
+            <div class="card dl-sidebar-card text-center">
+              <p style="font-size:.875rem;color:var(--gray-600);margin-bottom:14px;">Need to share another file?</p>
+              <a href="index.html" class="btn btn-primary" style="width:100%;">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                Generate New Link
+              </a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding:20px 0;">
+        <span class="footer-bottom-txt">&copy; 2025 VantageDown. All rights reserved.</span>
+        <div style="display:flex;gap:16px;">
+          <a href="terms.html" class="footer-link">Terms</a>
+          <a href="privacy.html" class="footer-link">Privacy</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

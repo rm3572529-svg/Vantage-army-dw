@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Server Info - VantageDown</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6431906375099854" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div style="width:36px;height:36px;background:var(--blue-primary);border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        </div>
+        <span class="nav-brand-name">Vantage<span>Down</span></span>
+      </a>
+      <div class="nav-actions">
+        <button class="theme-toggle" title="Toggle dark mode">
+          <svg class="theme-icon-sun" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2"/></svg>
+          <svg class="theme-icon-moon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <a href="index.html" class="btn btn-ghost btn-sm">← Back to Home</a>
+      </div>
+    </div>
+  </nav>
+
+  <div style="max-width:860px;margin:0 auto;padding:48px 20px 80px;">
+
+    <div style="margin-bottom:32px;">
+      <div class="hero-label" style="display:inline-flex;margin-bottom:14px;">Developer Reference</div>
+      <h1 style="font-size:1.8rem;font-weight:700;color:var(--gray-900);margin-bottom:8px;">Server &amp; Deployment Guide</h1>
+      <p style="color:var(--gray-600);">Technical reference for deploying and configuring VantageDown.</p>
+    </div>
+
+    <!-- Architecture -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><span class="fw-600">Architecture Overview</span></div>
+      <div class="card-body">
+        <p style="font-size:.875rem;color:var(--gray-600);margin-bottom:16px;">VantageDown is a fully client-side static site with Firebase as its backend. No Node.js server is required. All logic runs in the browser.</p>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
+          <div style="background:var(--gray-50);border-radius:var(--radius-md);padding:14px;">
+            <div class="fw-600" style="font-size:.875rem;color:var(--gray-900);margin-bottom:4px;">Frontend</div>
+            <p class="text-sm text-muted">HTML5, CSS3, Vanilla JS. No build step required. Static files only.</p>
+          </div>
+          <div style="background:var(--gray-50);border-radius:var(--radius-md);padding:14px;">
+            <div class="fw-600" style="font-size:.875rem;color:var(--gray-900);margin-bottom:4px;">Authentication</div>
+            <p class="text-sm text-muted">Firebase Auth with Google OAuth and Email/Password providers.</p>
+          </div>
+          <div style="background:var(--gray-50);border-radius:var(--radius-md);padding:14px;">
+            <div class="fw-600" style="font-size:.875rem;color:var(--gray-900);margin-bottom:4px;">Database</div>
+            <p class="text-sm text-muted">Google Firestore (NoSQL). Collections: users, links, config.</p>
+          </div>
+          <div style="background:var(--gray-50);border-radius:var(--radius-md);padding:14px;">
+            <div class="fw-600" style="font-size:.875rem;color:var(--gray-900);margin-bottom:4px;">File Storage</div>
+            <p class="text-sm text-muted">No storage needed. Files remain on Google Drive.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Setup Steps -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><span class="fw-600">Setup Instructions</span></div>
+      <div class="card-body">
+        <div style="display:flex;flex-direction:column;gap:18px;">
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-primary);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">1</div>
+            <div>
+              <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Create a Firebase Project</div>
+              <p class="text-sm text-muted">Go to <a href="https://console.firebase.google.com" target="_blank" class="text-blue">console.firebase.google.com</a>, create a new project, and enable Firestore Database and Authentication.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-primary);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">2</div>
+            <div>
+              <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Configure firebase.js</div>
+              <p class="text-sm text-muted">Open <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.82rem;">firebase.js</code> and replace the <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.82rem;">FIREBASE_CONFIG</code> object with your project's config from the Firebase console (Project Settings → Your apps → Web app).</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-primary);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">3</div>
+            <div>
+              <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Enable Auth Providers</div>
+              <p class="text-sm text-muted">In Firebase Console → Authentication → Sign-in method: enable <strong>Google</strong> and <strong>Email/Password</strong>.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-primary);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">4</div>
+            <div>
+              <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Set Firestore Security Rules</div>
+              <p class="text-sm text-muted">In Firebase Console → Firestore → Rules, paste the rules from the section below.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-primary);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">5</div>
+            <div>
+              <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Create First Admin</div>
+              <p class="text-sm text-muted">Register an account via the site, then go to Firestore → users → your UID document, and manually change <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.82rem;">role</code> from <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.82rem;">"user"</code> to <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;font-size:.82rem;">"admin"</code>.</p>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:14px;align-items:flex-start;">
+            <div style="width:28px;height:28px;border-radius:50%;background:var(--blue-primary);color:#fff;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;">6</div>
+            <div>
+              <div class="fw-600" style="color:var(--gray-900);margin-bottom:4px;">Deploy to a Static Host</div>
+              <p class="text-sm text-muted">Upload all files to any static hosting: <strong>Firebase Hosting</strong>, Netlify, Vercel, GitHub Pages, or any web server. No backend required.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Firestore Rules -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><span class="fw-600">Firestore Security Rules</span></div>
+      <div class="card-body">
+        <pre style="background:var(--gray-900);color:#e4e7ec;padding:20px;border-radius:var(--radius-md);font-size:.8rem;overflow-x:auto;line-height:1.6;"><code>rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Users: read own doc, write only own doc
+    match /users/{uid} {
+      allow read:  if request.auth != null && request.auth.uid == uid;
+      allow write: if request.auth != null && request.auth.uid == uid;
+      // Admin can read/write all users
+      allow read, write: if request.auth != null
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    // Links: authenticated users can create own links, read any link
+    match /links/{linkId} {
+      allow read: if true; // public read for download pages
+      allow create: if request.auth != null;
+      allow update, delete: if request.auth != null
+        && (resource.data.uid == request.auth.uid
+          || get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin');
+    }
+
+    // Config: public read, admin write only
+    match /config/{docId} {
+      allow read: if true;
+      allow write: if request.auth != null
+        && get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+  }
+}</code></pre>
+      </div>
+    </div>
+
+    <!-- Deployment Options -->
+    <div class="card" style="margin-bottom:20px;">
+      <div class="card-header"><span class="fw-600">Recommended Hosting Options</span></div>
+      <div class="card-body">
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:14px;">
+          <div style="border:1.5px solid var(--blue-primary);border-radius:var(--radius-md);padding:16px;">
+            <div class="fw-600" style="color:var(--blue-primary);margin-bottom:6px;">Firebase Hosting</div>
+            <p class="text-sm text-muted">Best option. Free SSL, CDN, same ecosystem as auth/db. Run <code style="background:var(--gray-100);padding:1px 5px;border-radius:3px;">firebase deploy</code>.</p>
+          </div>
+          <div style="border:1.5px solid var(--gray-200);border-radius:var(--radius-md);padding:16px;">
+            <div class="fw-600" style="color:var(--gray-900);margin-bottom:6px;">Netlify</div>
+            <p class="text-sm text-muted">Drag and drop the folder. Free tier, auto SSL, instant deploys.</p>
+          </div>
+          <div style="border:1.5px solid var(--gray-200);border-radius:var(--radius-md);padding:16px;">
+            <div class="fw-600" style="color:var(--gray-900);margin-bottom:6px;">Vercel</div>
+            <p class="text-sm text-muted">Connect your GitHub repo and deploy automatically on each push.</p>
+          </div>
+          <div style="border:1.5px solid var(--gray-200);border-radius:var(--radius-md);padding:16px;">
+            <div class="fw-600" style="color:var(--gray-900);margin-bottom:6px;">GitHub Pages</div>
+            <p class="text-sm text-muted">Push to a <code style="background:var(--gray-100);padding:1px 5px;border-radius:3px;">gh-pages</code> branch. Free hosting at username.github.io.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Admin URL -->
+    <div class="card">
+      <div class="card-header" style="display:flex;align-items:center;gap:10px;">
+        <span class="admin-badge">Admin</span>
+        <span class="fw-600">Admin Panel Access</span>
+      </div>
+      <div class="card-body">
+        <p class="text-sm text-muted" style="margin-bottom:12px;">The admin panel is located at <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;font-size:.85rem;">/admin.html</code>. It is protected by Firebase role-based access — only accounts with <code style="background:var(--gray-100);padding:2px 6px;border-radius:4px;">role: "admin"</code> in Firestore can use it. Anyone else sees an "Access Denied" screen.</p>
+        <p class="text-sm text-muted">For additional security, you can rename <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;font-size:.85rem;">admin.html</code> to a secret filename (e.g., <code style="background:var(--gray-100);padding:2px 8px;border-radius:4px;font-size:.85rem;">cp-8f3a92.html</code>) and share only with trusted admins.</p>
+      </div>
+    </div>
+
+  </div>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-bottom" style="border-top:none;padding:20px 0;">
+        <span class="footer-bottom-txt">&copy; 2025 VantageDown. All rights reserved.</span>
+        <div style="display:flex;gap:16px;">
+          <a href="terms.html" class="footer-link">Terms</a>
+          <a href="privacy.html" class="footer-link">Privacy</a>
+          <a href="contact.html" class="footer-link">Contact</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <div id="toast-container"></div>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

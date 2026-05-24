@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel - VantageDown</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="style.css">
+  <!-- Google AdSense -->
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6431906375099854" crossorigin="anonymous"></script>
+</head>
+<body data-page="admin">
+
+  <!-- NAVBAR -->
+  <nav class="navbar">
+    <div class="container">
+      <a href="index.html" class="nav-brand">
+        <div style="width:36px;height:36px;background:#7c3aed;border-radius:8px;display:flex;align-items:center;justify-content:center;">
+          <svg width="20" height="20" fill="none" stroke="white" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <span class="nav-brand-name">Vantage<span style="color:#7c3aed;">Admin</span></span>
+      </a>
+      <div class="nav-actions">
+        <span class="admin-badge">
+          <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          Admin Panel
+        </span>
+        <button class="theme-toggle" title="Toggle dark mode">
+          <svg class="theme-icon-sun" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+          <svg class="theme-icon-moon" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="display:none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        </button>
+        <button class="sign-out-btn btn btn-ghost btn-sm">Sign Out</button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ACCESS DENIED (shown until admin verified) -->
+  <div id="admin-access-denied" class="hidden" style="min-height:80vh;display:flex;align-items:center;justify-content:center;">
+    <div class="card" style="max-width:420px;width:100%;padding:40px;text-align:center;margin:20px;">
+      <div style="width:64px;height:64px;background:#fee2e2;border-radius:var(--radius-xl);display:flex;align-items:center;justify-content:center;margin:0 auto 16px;color:#dc2626;">
+        <svg width="30" height="30" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <div style="font-size:1.1rem;font-weight:700;color:var(--gray-900);margin-bottom:8px;">Access Denied</div>
+      <p style="font-size:.875rem;color:var(--gray-600);margin-bottom:20px;">You do not have permission to access the admin panel. This page requires administrator privileges.</p>
+      <a href="index.html" class="btn btn-primary" style="width:100%;">Return to Home</a>
+    </div>
+  </div>
+
+  <!-- LOADING -->
+  <div id="admin-loading" style="min-height:80vh;display:flex;align-items:center;justify-content:center;">
+    <div style="text-align:center;">
+      <div style="width:40px;height:40px;border:3px solid var(--gray-200);border-top-color:#7c3aed;border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 12px;"></div>
+      <p style="color:var(--gray-400);font-size:.875rem;">Verifying admin access...</p>
+    </div>
+  </div>
+
+  <!-- ADMIN CONTENT -->
+  <div id="admin-content" class="hidden">
+    <div class="dashboard-layout">
+
+      <!-- SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-section-label">Overview</div>
+        <div class="sidebar-item active" onclick="adminTab('overview')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          Overview
+        </div>
+        <div class="sidebar-section-label">Management</div>
+        <div class="sidebar-item" onclick="adminTab('links')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+          All Links
+        </div>
+        <div class="sidebar-item" onclick="adminTab('users')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          Users
+        </div>
+        <div class="sidebar-section-label">Settings</div>
+        <div class="sidebar-item" onclick="adminTab('settings')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          Settings
+        </div>
+        <div class="sidebar-item" onclick="adminTab('social-config')">
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>
+          Social Tasks
+        </div>
+      </aside>
+
+      <!-- MAIN -->
+      <main class="dashboard-content">
+
+        <!-- ── OVERVIEW TAB ── -->
+        <div id="atab-overview">
+          <div class="dash-header">
+            <div class="dash-title">Admin Overview</div>
+            <div class="dash-sub">Site-wide statistics and health</div>
+          </div>
+
+          <div class="stats-grid" style="margin-bottom:24px;">
+            <div class="card stat-card">
+              <div class="stat-icon blue">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+              </div>
+              <div><div class="stat-val" id="a-total-users">—</div><div class="stat-lbl">Total Users</div></div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon orange">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+              </div>
+              <div><div class="stat-val" id="a-total-links">—</div><div class="stat-lbl">Total Links</div></div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon green">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              </div>
+              <div><div class="stat-val" id="a-total-downloads">—</div><div class="stat-lbl">Downloads</div></div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon purple">
+                <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0z"/><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/></svg>
+              </div>
+              <div><div class="stat-val" id="a-total-clicks">—</div><div class="stat-lbl">Total Clicks</div></div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><span class="fw-600">Top Downloaded Files</span></div>
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>File</th><th>Short ID</th><th>Downloads</th><th>Clicks</th></tr></thead>
+                <tbody id="a-top-links-tbody">
+                  <tr><td colspan="4" style="text-align:center;padding:30px;color:var(--gray-400);">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── ALL LINKS TAB ── -->
+        <div id="atab-links" style="display:none;">
+          <div class="dash-header" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px;">
+            <div><div class="dash-title">All Links</div><div class="dash-sub">View and manage all generated links</div></div>
+            <button onclick="loadAdminLinks()" class="btn btn-ghost btn-sm">
+              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-.07-10.21"/></svg>
+              Refresh
+            </button>
+          </div>
+          <div class="card">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>File</th><th>User</th><th>Short ID</th><th>Downloads</th><th>Created</th><th>Actions</th></tr></thead>
+                <tbody id="a-links-tbody">
+                  <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--gray-400);">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── USERS TAB ── -->
+        <div id="atab-users" style="display:none;">
+          <div class="dash-header">
+            <div class="dash-title">Users</div>
+            <div class="dash-sub">Manage all registered users</div>
+          </div>
+          <div class="card">
+            <div class="table-wrap">
+              <table>
+                <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Links Used</th><th>Joined</th><th>Actions</th></tr></thead>
+                <tbody id="a-users-tbody">
+                  <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--gray-400);">Loading...</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SETTINGS TAB ── -->
+        <div id="atab-settings" style="display:none;">
+          <div class="dash-header">
+            <div class="dash-title">Site Settings</div>
+            <div class="dash-sub">Control global site behavior and features</div>
+          </div>
+
+          <div class="card" style="max-width:640px;">
+            <div class="card-header"><span class="fw-600">Feature Toggles</span></div>
+            <div class="card-body">
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Direct Downloads</div>
+                  <div class="settings-row-desc">Allow users to download files directly without social unlock</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-direct-dl" onchange="saveToggle('directDownloadEnabled', this.checked)">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Social Unlock System</div>
+                  <div class="settings-row-desc">Require users to complete social tasks before downloading</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-social" onchange="saveToggle('socialUnlockEnabled', this.checked)">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <div class="settings-row-label">Monetization (AdSense)</div>
+                  <div class="settings-row-desc">Enable advertisement slots across the site</div>
+                </div>
+                <label class="toggle-switch">
+                  <input type="checkbox" id="toggle-monetization" onchange="saveToggle('monetizationEnabled', this.checked)">
+                  <span class="toggle-slider"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── SOCIAL CONFIG TAB ── -->
+        <div id="atab-social-config" style="display:none;">
+          <div class="dash-header">
+            <div class="dash-title">Social Task Configuration</div>
+            <div class="dash-sub">Set social platform links shown to users during download unlock</div>
+          </div>
+
+          <div class="card" style="max-width:600px;">
+            <div class="card-body" style="display:flex;flex-direction:column;gap:18px;">
+              <div class="form-group">
+                <label class="form-label">YouTube Channel Link</label>
+                <input type="url" id="cfg-youtube" class="form-control" placeholder="https://youtube.com/@yourChannel">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Instagram Profile Link</label>
+                <input type="url" id="cfg-instagram" class="form-control" placeholder="https://instagram.com/yourProfile">
+              </div>
+              <div class="form-group">
+                <label class="form-label">WhatsApp Group Link</label>
+                <input type="url" id="cfg-whatsapp" class="form-control" placeholder="https://chat.whatsapp.com/yourGroup">
+              </div>
+              <button onclick="saveSocialConfig()" class="btn btn-primary" style="align-self:flex-start;">
+                <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+                Save Configuration
+              </button>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+  </div>
+
+  <div id="toast-container"></div>
+
+  <script>
+    // Tab switching
+    const adminTabs = ["overview","links","users","settings","social-config"];
+    function adminTab(name) {
+      adminTabs.forEach(t => {
+        const el = document.getElementById(`atab-${t}`);
+        if (el) el.style.display = t === name ? "block" : "none";
+        document.querySelectorAll(".sidebar-item").forEach(si => {
+          if (si.getAttribute("onclick") === `adminTab('${t}')`) si.classList.toggle("active", t === name);
+        });
+      });
+      if (name === "links") loadAdminLinks();
+      if (name === "users") loadAdminUsers();
+      if (name === "settings" || name === "social-config") loadConfig();
+    }
+
+    // Save toggle
+    async function saveToggle(key, val) {
+      await window.VantageDB.Config.update({ [key]: val });
+      window.vantageToast(`Setting updated`, "success");
+    }
+
+    // Save social config
+    async function saveSocialConfig() {
+      const yt = document.getElementById("cfg-youtube").value;
+      const ig = document.getElementById("cfg-instagram").value;
+      const wa = document.getElementById("cfg-whatsapp").value;
+      await window.VantageDB.Config.update({ youtubeLink: yt, instagramLink: ig, whatsappLink: wa });
+      window.vantageToast("Social links saved!", "success");
+    }
+
+    // Load config into UI
+    async function loadConfig() {
+      const config = await window.VantageDB.Config.get();
+      const dd  = document.getElementById("toggle-direct-dl");  if(dd)  dd.checked  = !!config.directDownloadEnabled;
+      const soc = document.getElementById("toggle-social");      if(soc) soc.checked = !!config.socialUnlockEnabled;
+      const mon = document.getElementById("toggle-monetization");if(mon) mon.checked = !!config.monetizationEnabled;
+      const yt  = document.getElementById("cfg-youtube");        if(yt)  yt.value    = config.youtubeLink || "";
+      const ig  = document.getElementById("cfg-instagram");      if(ig)  ig.value    = config.instagramLink || "";
+      const wa  = document.getElementById("cfg-whatsapp");       if(wa)  wa.value    = config.whatsappLink || "";
+    }
+
+    // Load admin links
+    async function loadAdminLinks() {
+      const tbody = document.getElementById("a-links-tbody");
+      if (!tbody) return;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gray-400);">Loading...</td></tr>`;
+      const links = await window.VantageDB.Links.adminGetAll(100);
+      if (!links.length) { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--gray-400);">No links found.</td></tr>`; return; }
+      tbody.innerHTML = links.map(l => {
+        const date = l.createdAt?.toDate ? l.createdAt.toDate().toLocaleDateString() : "—";
+        return `<tr>
+          <td><div class="fw-500 truncate" style="max-width:160px;">${l.fileName||"File"}</div></td>
+          <td><span class="text-xs text-muted">${l.uid?.slice(0,8)||"—"}...</span></td>
+          <td><span style="font-family:var(--font-mono);font-size:.82rem;color:var(--blue-primary);">${l.shortId}</span></td>
+          <td>${l.downloads||0}</td>
+          <td>${date}</td>
+          <td>
+            <button onclick="adminDeleteLink('${l.shortId}')" class="btn btn-danger btn-sm">Delete</button>
+          </td>
+        </tr>`;
+      }).join("");
+    }
+
+    // Load admin users
+    async function loadAdminUsers() {
+      const tbody = document.getElementById("a-users-tbody");
+      if (!tbody) return;
+      tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:20px;color:var(--gray-400);">Loading...</td></tr>`;
+      const users = await window.VantageDB.Admin.getAllUsers(100);
+      if (!users.length) { tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:30px;color:var(--gray-400);">No users found.</td></tr>`; return; }
+      tbody.innerHTML = users.map(u => {
+        const date = u.createdAt?.toDate ? u.createdAt.toDate().toLocaleDateString() : "—";
+        return `<tr>
+          <td><div class="fw-500">${u.displayName||"User"}</div></td>
+          <td><span class="text-sm text-muted">${u.email||"—"}</span></td>
+          <td><span class="badge ${u.role==="admin"?"badge-red":"badge-blue"}">${u.role||"user"}</span></td>
+          <td>${u.linksUsed||0} / ${u.linksLimit||25}</td>
+          <td>${date}</td>
+          <td>
+            <div style="display:flex;gap:6px;">
+              ${u.role!=="admin"?`<button onclick="adminSetRole('${u.uid}','admin')" class="btn btn-ghost btn-sm">Make Admin</button>`:`<button onclick="adminSetRole('${u.uid}','user')" class="btn btn-ghost btn-sm">Remove Admin</button>`}
+              <button onclick="adminResetLinks('${u.uid}')" class="btn btn-ghost btn-sm">Reset Links</button>
+            </div>
+          </td>
+        </tr>`;
+      }).join("");
+    }
+
+    async function adminDeleteLink(id) {
+      if (!confirm("Delete link " + id + "? This cannot be undone.")) return;
+      const user = firebase.auth().currentUser;
+      await window.VantageDB.Links.delete(id, user.uid);
+      window.vantageToast("Link deleted", "success");
+      loadAdminLinks();
+    }
+
+    async function adminSetRole(uid, role) {
+      await window.VantageDB.Admin.setRole(uid, role);
+      window.vantageToast(`Role updated to ${role}`, "success");
+      loadAdminUsers();
+    }
+
+    async function adminResetLinks(uid) {
+      if (!confirm("Reset link count for this user?")) return;
+      await window.VantageDB.Admin.resetUserLinks(uid);
+      window.vantageToast("Links reset", "success");
+      loadAdminUsers();
+    }
+
+    // Admin access guard + overview load
+    async function initAdmin() {
+      const loadingEl = document.getElementById("admin-loading");
+      const contentEl = document.getElementById("admin-content");
+      const deniedEl  = document.getElementById("admin-access-denied");
+
+      firebase.auth().onAuthStateChanged(async (user) => {
+        if (!user) { window.location.href = "login.html"; return; }
+        const isAdmin = await window.VantageDB.Auth.isAdmin(user.uid);
+        if (loadingEl) loadingEl.style.display = "none";
+        if (!isAdmin) { if (deniedEl) deniedEl.classList.remove("hidden"); return; }
+        if (contentEl) contentEl.classList.remove("hidden");
+
+        // Load overview stats
+        const [users, links, clicks, topLinks] = await Promise.all([
+          window.VantageDB.Analytics.getTotalUsers(),
+          window.VantageDB.Analytics.getTotalLinks(),
+          window.VantageDB.Analytics.getGlobal(),
+          window.VantageDB.Analytics.getTopLinks(5)
+        ]);
+
+        const el = (id) => document.getElementById(id);
+        if (el("a-total-users"))     el("a-total-users").textContent     = users;
+        if (el("a-total-links"))     el("a-total-links").textContent     = links;
+        if (el("a-total-downloads")) el("a-total-downloads").textContent = clicks.downloads || 0;
+        if (el("a-total-clicks"))    el("a-total-clicks").textContent    = clicks.clicks    || 0;
+
+        // Top links table
+        const topTbody = el("a-top-links-tbody");
+        if (topTbody) {
+          if (!topLinks.length) {
+            topTbody.innerHTML = `<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--gray-400);">No links yet.</td></tr>`;
+          } else {
+            topTbody.innerHTML = topLinks.map(l => `
+              <tr>
+                <td><div class="fw-500 truncate" style="max-width:200px;">${l.fileName||"File"}</div></td>
+                <td><span style="font-family:var(--font-mono);font-size:.82rem;color:var(--blue-primary);">${l.shortId}</span></td>
+                <td>${l.downloads||0}</td>
+                <td>${l.clicks||0}</td>
+              </tr>`).join("");
+          }
+        }
+      });
+    }
+
+    initAdmin();
+  </script>
+
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="firebase.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
